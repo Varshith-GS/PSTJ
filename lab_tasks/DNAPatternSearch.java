@@ -1,5 +1,8 @@
+import java.util.*;
+
 public class DNAPatternSearch {
 
+    // Function to compute LPS array
     private static int[] computeLPS(String pattern) {
         int[] lps = new int[pattern.length()];
         int len = 0;
@@ -22,6 +25,7 @@ public class DNAPatternSearch {
         return lps;
     }
 
+    // KMP Search
     public static void search(String text, String pattern) {
         int[] lps = computeLPS(pattern);
         int i = 0, j = 0;
@@ -32,7 +36,7 @@ public class DNAPatternSearch {
                 j++;
             }
             if (j == pattern.length()) {
-                System.out.println("Pattern found at index " + (i - j));
+                System.out.print((i - j) + " "); // print starting index
                 j = lps[j - 1];
             } else if (i < text.length() && pattern.charAt(j) != text.charAt(i)) {
                 if (j != 0) {
@@ -45,9 +49,13 @@ public class DNAPatternSearch {
     }
 
     public static void main(String[] args) {
-        String dnaSequence = "ACGTACGTGACG";
-        String pattern = "ACGT";
+        Scanner sc = new Scanner(System.in);
 
-        search(dnaSequence, pattern);
+        // Input DNA string and pattern
+        String text = sc.nextLine();
+        String pattern = sc.nextLine();
+
+        // Search and print all occurrences
+        search(text, pattern);
     }
 }
